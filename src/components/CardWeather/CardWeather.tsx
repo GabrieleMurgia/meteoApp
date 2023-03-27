@@ -15,7 +15,7 @@ export const CardWeather: React.FC<WeatherCardData> = ({
 
 
 	const handleAddFavorite = ()=>{
-
+ //da gestire
 	}
 
 	return (

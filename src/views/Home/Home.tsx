@@ -62,11 +62,11 @@ export const Home = (props: HomeProps) => {
           });
         },
         (error) => {
-          console.error("Error obtaining user location:", error);
+          console.error("DA GESTIRE:", error);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      console.error("DA GESTIRE");
     }
   };
 

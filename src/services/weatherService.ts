@@ -23,3 +23,4 @@ export const getCurrentWeather = async (
     throw error;
   }
 };
+
