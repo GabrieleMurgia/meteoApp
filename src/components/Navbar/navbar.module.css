@@ -51,14 +51,9 @@
   
   @media screen and (max-width: 768px) {
     .navbar-menu {
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
       background-color: #333;
       height: 0;
-      overflow: hidden;
+      display: flex;
       transition: height 0.3s ease-in-out;
     }
   
