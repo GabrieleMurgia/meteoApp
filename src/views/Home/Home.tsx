@@ -1,56 +1,51 @@
 import { useEffect, useState } from 'react';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { getCurrentWeather } from '../../services/weatherService';
 import { WeatherCardData } from '../../interfaces/weatherCardData';
-
+import { CurrentWeatherData } from '../../interfaces/currentWeather';
 import classes from './home.module.css';
 import { CardWeather } from '../../components/CardWeather/CardWeather';
+import { useDispatch, useSelector } from 'react-redux';
+import { addWeatherCard } from '../../store/weatherSlice';
+import { RootState } from '../../store/store';
+
 
 export interface HomeProps {}
 
 export const Home = (props: HomeProps) => {
-  const [weatherCollection, setWeatherCollection] = useState<WeatherCardData[]>([]);
+  const weatherCollection = useSelector((state:RootState) => state.weather.cards);
+  const dispatch = useDispatch();
   const [userLocation, setUserLocation] = useState<{ latitude?: number; longitude?: number; city?: string } | null>(null);
-  const [cityName, setCityName] = useState("");
+  const [cityName, setCityName] = useState<string>("");
+
+
+  const createWeatherCardData = (data: CurrentWeatherData): WeatherCardData => {
+    return {
+      city_name: data.city_name,
+      weather: {
+        description: data.weather.description,
+        icon: data.weather.icon,
+      },
+      temp: data.temp,
+      wind_spd: data.wind_spd,
+      rh: data.rh,
+    };
+  };
 
   useEffect(() => {
-    if (userLocation) {
+    const fetchData = async () => {
       if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
-        getCurrentWeather(userLocation.latitude, userLocation.longitude)
-          .then((data) => {
-            console.log(data);
-            const newWeatherData: WeatherCardData = {
-              city_name: data.city_name,
-              weather: {
-                description: data.weather.description,
-                icon: data.weather.icon,
-              },
-              temp: data.temp,
-              wind_spd: data.wind_spd,
-              rh: data.rh,
-            };
-            addWeatherData(newWeatherData);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        try {
+          const data = await getCurrentWeather(userLocation.latitude, userLocation.longitude);
+          const newWeatherData = createWeatherCardData(data);
+          dispatch(addWeatherCard(newWeatherData));
+        } catch (error) {
+          console.log(error, "Da gestire");
+        }
       }
-    }
-  }, [userLocation]);
-
-  const addWeatherData = (newWeatherData: WeatherCardData) => {
-    setWeatherCollection((prev) => {
-      const cityAlreadyExists = prev.some(
-        (item) => item.city_name === newWeatherData.city_name
-      );
-
-      if (cityAlreadyExists) {
-        return prev;
-      } else {
-        return [...prev, newWeatherData];
-      }
-    });
-  };
+    };
+  
+    fetchData();
+  }, [dispatch, userLocation]);
 
   const handleLocation = () => {
     if (navigator.geolocation) {
@@ -73,56 +68,42 @@ export const Home = (props: HomeProps) => {
   const handleSearch = async () => {
     try {
       const data = await getCurrentWeather(undefined, undefined, cityName);
-      const newWeatherData: WeatherCardData = {
-        city_name: data.city_name,
-        weather: {
-          description: data.weather.description,
-          icon: data.weather.icon,
-        },
-        temp: data.temp,
-        wind_spd: data.wind_spd,
-        rh: data.rh,
-      };
-
-      addWeatherData(newWeatherData);
+      const newWeatherData = createWeatherCardData(data);
+      dispatch(addWeatherCard(newWeatherData));
     } catch (error) {
       console.error(error);
     }
   };
 
 	return (
-		<div className={classes["container"]}>
-  <Navbar />
-  <div className={classes["container-home"]}>
-
-    <div className={classes["search-container"]}>
-     <div>
-     <button className={classes["location-button"]} onClick={handleLocation}>
-        Utilizza la mia posizione
-      </button>
-     </div>
-     <div>
-     <input
-        type="text"
-        className={classes["search-input"]}
-        placeholder="Cerca una località"
-        onChange={(e) => setCityName(e.target.value)}
-      />
-	  
-      <button className={classes["search-button"]} onClick={handleSearch}>
-        Cerca
-      </button>
-     </div>
+    <div className={classes["container"]}>
+ 
+        <div className={classes["search-container"]}>
+          <div>
+            <button className={classes["location-button"]} onClick={handleLocation}>
+              Utilizza la mia posizione
+            </button>
+          </div>
+          <div className={classes["search-container-bottom"]}>
+            <input
+              type="text"
+              className={classes["search-input"]}
+              placeholder="Cerca una località"
+              onChange={(e) => setCityName(e.target.value)}
+            />
+            <button className={classes["search-button"]} onClick={handleSearch}>
+              Cerca
+            </button>
+          </div>
+        </div>
+  
+        {weatherCollection && (
+          <div className={classes["weather-card-container"]}>
+            {weatherCollection.map((weatherItem) => {
+              return <CardWeather key={weatherItem.city_name} weatherData={weatherItem} />;
+            })}
+          </div>
+        )}
     </div>
-
-    {weatherCollection && (
-      <div className={classes["weather-card-container"]}>
-     {weatherCollection.map((weatherItem) => {
-      return <CardWeather key={weatherItem.city_name} {...weatherItem} />;
-      })}
-      </div>
-    )}
-  </div>
-</div>
-	);
+  );
 };

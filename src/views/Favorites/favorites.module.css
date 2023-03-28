@@ -1,28 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
+  background: linear-gradient(180deg, #83a4d4, #b6fbff);
 }
-.container-favorites {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    background-color: #f0f0f0;
-    height: 50%;
-  }
-  
-  .favorites-title {
-    margin: 0;
-    font-size: 2rem;
-    color: #333;
-  }
   
   .favorites-list {
     display: flex;
@@ -30,5 +11,22 @@
     justify-content: center;
     padding: 1rem;
     height: 50%;
-    border: 1px solid red;
+    height: 100%;
+    background: linear-gradient(180deg, #83a4d4, #b6fbff);
+  }
+
+  .no-favorites-message {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #a6dffe;
+    border: 2px solid #709de1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-size:1.5rem;
+    font-weight: 500;
+    color: #333333;
+    min-height: 150px;
   }

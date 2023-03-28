@@ -1,22 +1,20 @@
+import React from 'react';
 import classes from './card-weather.module.css';
 import { WeatherCardData } from '../../interfaces/weatherCardData';
+import { addFavorite } from '../../store/favoritesSlice';
+import { useDispatch } from 'react-redux';
 
-
-
-export const CardWeather: React.FC<WeatherCardData> = ({
-	city_name,
-	weather,
-	temp,
-	wind_spd,
-	rh,
+export const CardWeather: React.FC<{ weatherData: WeatherCardData }> = ({
+	weatherData,
   }) => {
+  const { city_name, weather, temp, wind_spd, rh } = weatherData;
+  const weatherIconUrl = `https://www.weatherbit.io/static/img/icons/${weather.icon}.png`;
 
-	const weatherIconUrl = `https://www.weatherbit.io/static/img/icons/${weather.icon}.png`;
+  const dispatch = useDispatch();
 
-
-	const handleAddFavorite = ()=>{
- //da gestire
-	}
+  const handleAddFavorite = (weatherData: WeatherCardData) => {
+    dispatch(addFavorite(weatherData));
+  };
 
 	return (
 	  <div className={classes["weather-card"]}>
@@ -26,7 +24,8 @@ export const CardWeather: React.FC<WeatherCardData> = ({
 		<p>Temperatura: {temp} °C</p>
 		<p>Velocità del vento: {wind_spd} m/s</p>
 		<p>Umidità: {rh}%</p>
-		<button className={classes["add-to-favorites-button"]} onClick={handleAddFavorite}>Aggiungi ai preferiti</button>
+		<button className={classes["add-to-favorites-button"]} onClick={()=>{handleAddFavorite(weatherData)}}>Aggiungi ai preferiti</button>
 	  </div>
 	);
   };
+
