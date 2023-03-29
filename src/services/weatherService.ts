@@ -5,11 +5,7 @@ const weatherAPI = axios.create({
   baseURL: 'https://api.weatherbit.io/v2.0',
 });
 
-export const getCurrentWeather = async (
-  latitude?: number,
-  longitude?: number,
-  cityName?: string
-) => {
+export const getCurrentWeather = async (latitude?: number,longitude?: number,cityName?: string) => {
   let url = '/current';
   if (latitude && longitude) {
     url += `?lat=${latitude}&lon=${longitude}&key=${API_KEY}`;
@@ -24,3 +20,9 @@ export const getCurrentWeather = async (
   }
 };
 
+export const fetchWeatherForecast = async (cityName: string) => {
+  const response = await axios.get(
+    `https://api.weatherbit.io/v2.0/forecast/daily?city=${cityName}&days=7&key=${API_KEY}`
+  );
+  return response.data;
+};

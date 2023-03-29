@@ -1,0 +1,18 @@
+.weather-item {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    justify-content: space-around;
+    border: 1px solid #b6cff5;
+    border-radius: 20px;
+    width: 60%;
+    cursor: pointer;
+    background-color: #92b5ea;
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  .weather-item img {
+    width: 50px;
+    height: 50px;
+  }

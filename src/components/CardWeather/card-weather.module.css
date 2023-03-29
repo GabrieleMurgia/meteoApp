@@ -6,7 +6,16 @@
     max-width: 300px;
     margin: 20px auto;
     text-align: center;
-    max-height: 300px;
+    max-height: 400px;
+  }
+
+  .go-to-forecast{
+    margin: 10px 0px;
+    padding: 10px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #83bbf5;
+    color:white;
   }
 
   .add-to-favorites-button {
