@@ -7,7 +7,7 @@ import { CardWeather } from '../../components/CardWeather/CardWeather';
 import { useDispatch, useSelector } from 'react-redux';
 import { addWeatherCard } from '../../store/weatherSlice';
 import { RootState } from '../../store/store';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 export interface HomeProps {}
 
@@ -16,6 +16,10 @@ export const Home = (props: HomeProps) => {
   const dispatch = useDispatch();
   const [userLocation, setUserLocation] = useState<{ latitude?: number; longitude?: number; city?: string } | null>(null);
   const [cityName, setCityName] = useState<string>("");
+
+  const showErrorToast = (error:any) => {
+    toast.error(`${error}`);
+  };
 
 
   const createWeatherCardData = (data: CurrentWeatherData): WeatherCardData => {
@@ -39,7 +43,7 @@ export const Home = (props: HomeProps) => {
           const newWeatherData = createWeatherCardData(data);
           dispatch(addWeatherCard(newWeatherData));
         } catch (error) {
-          console.log(error, "Da gestire");
+          showErrorToast(`Errore : ${error}`)
         }
       }
     };
@@ -57,21 +61,20 @@ export const Home = (props: HomeProps) => {
           });
         },
         (error) => {
-          console.error("DA GESTIRE:", error);
+          showErrorToast(`Errore nel geolocalizzare il tuo dispositivo`)
         }
-      );
-    } else {
-      console.error("DA GESTIRE");
+      )
     }
   };
 
   const handleSearch = async () => {
+   
     try {
       const data = await getCurrentWeather(undefined, undefined, cityName);
       const newWeatherData = createWeatherCardData(data);
       dispatch(addWeatherCard(newWeatherData));
     } catch (error) {
-      console.error(error);
+      showErrorToast(`Errore : ${error}`)
     }
   };
 
@@ -91,7 +94,7 @@ export const Home = (props: HomeProps) => {
               placeholder="Cerca una località"
               onChange={(e) => setCityName(e.target.value)}
             />
-            <button className={classes["search-button"]} onClick={handleSearch}>
+            <button className={classes["search-button"]} onClick={handleSearch} disabled={cityName.length === 0}>
               Cerca
             </button>
           </div>

@@ -8,6 +8,24 @@
     text-align: center;
     max-height: 400px;
   }
+  .weather-card-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .weather-remove-button{
+    border: 1px solid #248bf8;
+    border-radius: 50%;
+    padding: 10px 15px;
+    position: relative;
+    bottom: 10px;
+    color:#248bf8;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #dbecff;
+  }
 
   .go-to-forecast{
     margin: 10px 0px;

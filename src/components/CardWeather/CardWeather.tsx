@@ -1,17 +1,19 @@
 import React from 'react';
 import classes from './card-weather.module.css';
 import { WeatherCardData } from '../../interfaces/weatherCardData';
-import { addFavorite } from '../../store/favoritesSlice';
+import { addFavorite, removeFavorite } from '../../store/favoritesSlice';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 export const CardWeather: React.FC<{ weatherData: WeatherCardData }> = ({weatherData}) => {
   const { city_name, weather, temp, wind_spd, rh } = weatherData;
   const weatherIconUrl = `https://www.weatherbit.io/static/img/icons/${weather.icon}.png`;
-
  const dispatch = useDispatch();
  const navigate = useNavigate();
+ const location = useLocation();
+ const currentUrl = location.pathname;
 
 	const handleNavigation = () => {
   	navigate(`/city/${city_name}`);
@@ -21,9 +23,16 @@ export const CardWeather: React.FC<{ weatherData: WeatherCardData }> = ({weather
     dispatch(addFavorite(weatherData));
   };
 
+  const handleDelete = () => {
+    dispatch(removeFavorite(city_name));
+  };
+
 	return (
 	  <div className={classes["weather-card"]}>
-		<h2>{city_name}</h2>
+		<div className={classes["weather-card-top"]} style={ currentUrl !== '/favorites' ? {justifyContent:'center'} : undefined }>
+		<h2 >{city_name}</h2>
+		{currentUrl === '/favorites' && <span className={classes["weather-remove-button"]} onClick={()=> handleDelete()}>X</span>}
+		</div>
 		<img src={weatherIconUrl} alt={weather.description} />
 		<p>{weather.description}</p>
 		<p>Temperatura: {temp} °C</p>

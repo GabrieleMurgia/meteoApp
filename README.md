@@ -9,6 +9,7 @@ Axios
 Weatherbit API
 Redux toolkit
 date-fns
+React-Toastify 
 
 Giorno 1:
 -Ho ragionato su che applicazione realizzare e le tecnologie che mi sarebbero potute servire
@@ -27,5 +28,7 @@ Giorno 2:
 Giorno3:
 -ho aggiunto la feature per le previsioni del meteo, implementando la view e la logica delle chiamate axios
 -aggiunta la favicon e il logo per la navbar
--
+
+Giorno4:
+-ho sistemato dello stile css e implementato alcune feature UI/UX
 

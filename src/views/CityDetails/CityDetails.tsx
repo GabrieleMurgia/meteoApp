@@ -32,7 +32,7 @@ export const CityDetails = (props: CityDetailsProps) => {
       
       <div className={classes["container"]}>
         <span className={classes['forecasts-message']}>
-          Le previsioni del tempo di una settimana
+          Le previsioni per 7 giorni
         </span>
         {weatherData.length > 0 && (
            <div className={classes['container-details']}>

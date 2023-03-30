@@ -4,6 +4,8 @@ import { Favorites } from "./views/Favorites/Favorites";
 import { Home } from "./views/Home/Home";
 import classes from "./App.module.css"
 import { CityDetails } from "./views/CityDetails/CityDetails";
+import { ToastContainer } from 'react-toastify';
+
 
 
 
@@ -20,6 +22,7 @@ function App() {
           <Route path="/city/:cityId" element={<CityDetails />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </div>
   );
 }
