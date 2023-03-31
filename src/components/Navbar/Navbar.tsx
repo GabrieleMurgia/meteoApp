@@ -6,7 +6,7 @@ export interface NavbarProps {}
 export const Navbar = (props: NavbarProps) => {
 	
   const location = useLocation();
-  console.log(location.pathname)
+
 	return (
 		<>
   <nav className={classes["navbar"]} style={location.pathname === '/favorites' ? {position:'fixed'} : {position:'initial'}}>
