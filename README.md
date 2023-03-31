@@ -30,3 +30,6 @@ Day 3:
 
 Day 4:
 -Fixed the CSS style and implemented some UI/UX features
+
+Day 5:
+-Fixed the CSS and translated the readme from italian to English.
