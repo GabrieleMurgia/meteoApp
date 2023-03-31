@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addWeatherCard } from '../../store/weatherSlice';
 import { RootState } from '../../store/store';
 import { ToastContainer, toast } from 'react-toastify';
+import { Welcomecomponent } from './components/Welcomecomponent/Welcomecomponent';
+import { Loadingcard } from './components/Loadingcard/Loadingcard';
 
 export interface HomeProps {}
 
@@ -16,9 +18,10 @@ export const Home = (props: HomeProps) => {
   const dispatch = useDispatch();
   const [userLocation, setUserLocation] = useState<{ latitude?: number; longitude?: number; city?: string } | null>(null);
   const [cityName, setCityName] = useState<string>("");
+  const [isLoading,setIsLoading] = useState<boolean>(false)
 
   const showErrorToast = (error:any) => {
-    toast.error(`${error}`);
+    toast.error(`${error}`,{autoClose:500});
   };
 
 
@@ -37,16 +40,23 @@ export const Home = (props: HomeProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
-        try {
-          const data = await getCurrentWeather(userLocation.latitude, userLocation.longitude);
-          const newWeatherData = createWeatherCardData(data);
-          dispatch(addWeatherCard(newWeatherData));
-        } catch (error) {
-          showErrorToast(`Errore : ${error}`)
+      
+        if (userLocation && userLocation.latitude !== undefined && userLocation.longitude !== undefined) {
+          try {
+            setIsLoading(true);
+            const data = await getCurrentWeather(userLocation.latitude, userLocation.longitude);
+            const newWeatherData = createWeatherCardData(data);
+            dispatch(addWeatherCard(newWeatherData));
+          } catch (error) {
+            showErrorToast(`Errore : ${error}`)
+          } finally {
+            setTimeout(()=>{
+              setIsLoading(false);
+            },1000)
+          }
         }
-      }
-    };
+ 
+    }
   
     fetchData();
   }, [dispatch, userLocation]);
@@ -68,7 +78,8 @@ export const Home = (props: HomeProps) => {
   };
 
   const handleSearch = async () => {
-   
+    setIsLoading(true); 
+  
     try {
       const data = await getCurrentWeather(undefined, undefined, cityName);
       const newWeatherData = createWeatherCardData(data);
@@ -76,12 +87,16 @@ export const Home = (props: HomeProps) => {
     } catch (error) {
       showErrorToast(`Errore : ${error}`)
     }
+  
+    setTimeout(()=>{
+      setIsLoading(false);
+    },1000)
   };
 
 	return (
     <div className={classes["container"]}>
  
-        <div className={classes["search-container"]}>
+         <div className={classes["search-container"]}>
           <div>
             <button className={classes["location-button"]} onClick={handleLocation}>
               Utilizza la mia posizione
@@ -99,6 +114,11 @@ export const Home = (props: HomeProps) => {
             </button>
           </div>
         </div>
+
+        {
+          weatherCollection.length === 0 && <Welcomecomponent></Welcomecomponent>
+        }
+         {isLoading && <Loadingcard></Loadingcard>}
   
         {weatherCollection && (
           <div className={classes["weather-card-container"]}>

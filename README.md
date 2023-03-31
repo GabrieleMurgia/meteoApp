@@ -30,5 +30,5 @@ Giorno3:
 -aggiunta la favicon e il logo per la navbar
 
 Giorno4:
--ho sistemato dello stile css e implementato alcune feature UI/UX
+-ho sistemato lo stile css e implementato alcune feature UI/UX
 

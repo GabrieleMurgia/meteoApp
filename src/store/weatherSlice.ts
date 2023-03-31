@@ -23,7 +23,7 @@ export const weatherSlice = createSlice({
         state.cards = []
         state.cards.push(action.payload);
       }else{
-        toast.success(`la località è già presente nell'elenco`);
+        toast.success(`la località è già presente nell'elenco`, { autoClose: 500 });
       }
     },
   },
