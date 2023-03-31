@@ -1,34 +1,32 @@
 Meteo App
-Meteo App è un'applicazione web che consente agli utenti di visualizzare le informazioni meteo attuali per le località specificate. Gli utenti possono cercare le condizioni meteo per città o utilizzare la loro posizione corrente per ottenere le informazioni meteo. 
-Le informazioni meteo includono descrizione del tempo, icona, temperatura, velocità del vento e umidità relativa.
+Meteo App is a web application that allows users to view current weather information for specified locations. Users can search for weather conditions by city or use their current location to obtain weather information. Weather information includes weather description, icon, temperature, wind speed, and relative humidity.
 
-Tecnologie utilizzate
+Technologies used
+
 React
 TypeScript
 Axios
 Weatherbit API
 Redux toolkit
 date-fns
-React-Toastify 
+React-Toastify
 
-Giorno 1:
--Ho ragionato su che applicazione realizzare e le tecnologie che mi sarebbero potute servire
--Ho creato il template html base per l'applicazione e aggiunto lo stile, inoltre ho creato diverse cartelle per strutturare il progetto e renderlo ordinato.
--Ho implementato delle media query per rendere il design responsive.
--Ho implementato le chiamate axios all'api e le interfacce TypeScript correlate.
--Ho implementato la logica di routing e le due view principali (Home e Favorites).
+Day 1:
+-Thought about the application to create and the technologies that could be useful
+-Created the basic HTML template for the application and added the style, also created several folders to structure the project and keep it organized
+-Implemented media queries to make the design responsive
+-Implemented axios calls to the API and the related TypeScript interfaces
+-Implemented the routing logic and the two main views (Home and Favorites)
 
+Day 2:
+-Replaced the card management logic with Redux toolkit
+-Fixed the CSS in the Home and Favorites view
+-Added a starter CSS file
+-Added a check that prevents adding multiple cards of the same city, as it would not be consistent with the app's functionality
 
-Giorno 2:
--Ho sostituito la logica di gestione delle card con redux toolkit
--sistemato il css in home e favorite view
--aggiunto un file starter css 
--aggiunto un check che impedisce di aggiungere più card della stessa città, poichè non sarebbe coerente con il funzionamento dell'app
+Day 3:
+-Added the weather forecast feature, implementing the view and the axios call logic
+-Added the favicon and the logo for the navbar
 
-Giorno3:
--ho aggiunto la feature per le previsioni del meteo, implementando la view e la logica delle chiamate axios
--aggiunta la favicon e il logo per la navbar
-
-Giorno4:
--ho sistemato lo stile css e implementato alcune feature UI/UX
-
+Day 4:
+-Fixed the CSS style and implemented some UI/UX features

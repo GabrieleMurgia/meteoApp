@@ -72,12 +72,12 @@
       gap:20px;
     }
     .search-button {
-      padding: 0;
+      padding: 0.5rem 1rem;
       cursor: pointer;
       width: calc(16rem + 0.5vw);
     }
     .search-input {
-      padding: 0;
+      padding: 0.5rem 1rem;
       margin-top: 1rem;
     }
    .search-container-bottom{

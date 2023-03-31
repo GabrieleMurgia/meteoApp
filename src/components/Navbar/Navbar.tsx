@@ -1,8 +1,8 @@
 import classes from './navbar.module.css';
 import { Link, useLocation } from 'react-router-dom';
 import LogoTransparent from '../../assets/img/LogoTransparent.png';
-export interface NavbarProps {}
 
+export interface NavbarProps {}
 export const Navbar = (props: NavbarProps) => {
 	
   const location = useLocation();
